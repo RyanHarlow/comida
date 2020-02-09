@@ -1,0 +1,19 @@
+.LandingPage{
+    background-image: url("/food-tray.jpeg");
+    background-size: cover;   
+}
+
+.intro-hero{
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .LandingPage{
+        background-color: white;
+        background-image: none;
+    }
+    .intro-hero{
+        color: black;
+    }
+   }
+
