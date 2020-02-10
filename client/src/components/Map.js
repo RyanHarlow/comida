@@ -1,33 +1,32 @@
-import React, { Component } from 'react';
-import mapboxgl from 'mapbox-gl'
-mapboxgl.accessToken = 'pk.eyJ1Ijoicnlhbmhhcmxvdzk1IiwiYSI6ImNrNTJ1c2NtbDAxdzczZ250eGZ5ZXYyY2gifQ.2EN37mO-Fn8QNmu-FoOFDA';
+import React, {Component} from 'react';
+import ReactMapGL from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 
 class Map extends Component {
-    constructor(props) {
+    constructor(props){
         super(props);
         this.state = {
-            lng: 5,
-            lat: 34,
-            zoom: 2
-        };
+            viewport: {
+              width: '90wh',
+              height: '90vh',
+              latitude: 19.4326,
+              longitude: -99.1332,
+              zoom: 11
+            }
+          };
     }
 
-    componentDidMount() {
-        const map = new mapboxgl.Map({
-            container: this.mapContainer,
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [this.state.lng, this.state.lat],
-            zoom: this.state.zoom
-        });
-    }
-
-    render() {
-        return (
-            <div>
-                <div ref={el => this.mapContainer = el} className="mapContainer" style={{height: '100vh'}}/>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <ReactMapGL
+        {...this.state.viewport}
+        onViewportChange={(viewport) => this.setState({viewport})}
+        mapboxApiAccessToken='pk.eyJ1Ijoicnlhbmhhcmxvdzk1IiwiYSI6ImNrNTJ1c2NtbDAxdzczZ250eGZ5ZXYyY2gifQ.2EN37mO-Fn8QNmu-FoOFDA'
+        mapStyle="mapbox://styles/mapbox/streets-v11"
+        />
+    );
+  }
 }
 
-export default Map;
+export default Map

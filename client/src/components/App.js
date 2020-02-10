@@ -13,7 +13,7 @@ function App() {
       <Navbar />
       <Route exact path='/' component={LandingPage}/>
       <Route exact path='/signup' component={Signup}/>
-      <Route exact path='/map' component={Map}/>
+      <Route exact path='/map' component={Map} />
       <Footer />
     </div>
   );
