@@ -9,11 +9,8 @@
 
 @media screen and (max-width: 768px) {
     .LandingPage{
-        background-color: white;
+        background-color: hsl(204, 86%, 53%);
         background-image: none;
-    }
-    .intro-hero{
-        color: black;
     }
    }
 
