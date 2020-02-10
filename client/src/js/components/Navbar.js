@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bulma/css/bulma.css'
-import logo from '../res/logo.svg';
+import logo from '../../res/logo.svg';
 
 export default function Navbar(props) {
 
@@ -14,7 +14,7 @@ export default function Navbar(props) {
                 <a className="navbar-item" href="/">
                     <img src={logo} style={{ height: '3rem', width: '3rem' }} alt='logo' />
                 </a>
-                <a className="navbar-item has-text-weight-bold">
+                <a href='/' className="navbar-item has-text-weight-bold">
                     Comida
                 </a>
 
@@ -35,14 +35,14 @@ export default function Navbar(props) {
                 <div className="navbar-start" style={{width: '100%', display: 'block', marginRight: '0'}}>
 
                     <a className="navbar-item" style={{width: '80%', display: 'block', marginRight:'40px'}}>
-                        <div class="field is-grouped" >
-                            <p class="control is-expanded">
-                                <input class="input" type="text" placeholder="Buscar Lugares" />
+                        <div className="field is-grouped" >
+                            <p className="control is-expanded">
+                                <input className="input" type="text" placeholder="Buscar Lugares" />
                             </p>
-                            <p class="control">
-                                <a class="button is-info">
+                            <p className="control">
+                                <button className="button is-info">
                                     Buscar
-                    </a>
+                    </button>
                             </p>
                         </div>
                     </a>
