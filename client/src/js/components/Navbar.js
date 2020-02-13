@@ -1,10 +1,41 @@
 import React, { useState } from 'react';
 import 'bulma/css/bulma.css'
 import logo from '../../res/logo.svg';
+import { connect } from 'react-redux';
+import SignupModal from './SignupModal';
+import LoginModal from './LoginModal';
 
-export default function Navbar(props) {
+
+const mapStateToProps = state => {
+    return { isLoggedIn: state.isLoggedIn };
+  };
+
+
+
+function Navbar(props) {
+
+    let buttons = (
+        <div className="buttons">
+                            <button className="button is-primary" onClick={() => setSignupModalOpen(true)}>
+                                <strong>Sign up</strong>
+                            </button>
+                            <button className="button is-light" onClick={() => setLoginModalOpen(true)}>
+                                Log in
+                            </button>
+                        </div>
+    )
+
+    if(props.isLoggedIn){
+        buttons = (<div className="buttons">
+        <button className="button is-primary">
+            <strong>Logout</strong>
+        </button>
+    </div>)
+    }
 
     const [menuOpen, setMenuOpen] = useState(false);
+    const [signupModalOpen, setSignupModalOpen] = useState(false);
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
     const burgerClasses = menuOpen ? 'navbar-burger burger is-active' : 'navbar-burger burger';
     const menuClasses = menuOpen ? 'navbar-menu is-active' : 'navbar-menu';
 
@@ -37,7 +68,7 @@ export default function Navbar(props) {
                     <a className="navbar-item" style={{width: '80%', display: 'block', marginRight:'40px'}}>
                         <div className="field is-grouped" >
                             <p className="control is-expanded">
-                                <input className="input" type="text" placeholder="Buscar Lugares" />
+                                <input className="input" type="text" placeholder={`Buscar Lugares`} />
                             </p>
                             <p className="control">
                                 <button className="button is-info">
@@ -50,17 +81,14 @@ export default function Navbar(props) {
 
                 <div className="navbar-end">
                     <div className="navbar-item">
-                        <div className="buttons">
-                            <a className="button is-primary">
-                                <strong>Sign up</strong>
-                            </a>
-                            <a className="button is-light">
-                                Log in
-                            </a>
-                        </div>
+                        {buttons}
                     </div>
                 </div>
             </div>
+            {loginModalOpen && <LoginModal closeModal={() => setLoginModalOpen(!loginModalOpen)}/>}
+            {signupModalOpen && <SignupModal closeModal={() => setSignupModalOpen(!signupModalOpen)}/>}
         </nav>
     )
 }
+
+export default connect(mapStateToProps)(Navbar);
