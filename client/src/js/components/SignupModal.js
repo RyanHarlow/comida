@@ -1,96 +1,83 @@
 import React, {useState} from 'react';
+import './SignupModal.css'
 
 function SignupModal(props) {
 
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [birthdate, setBirthdate] = useState('');
+    const [acceptsTerms, setAcceptsTerms] = useState(false);
 
+    
 
     return (
-        <div className="modal is-active">
+        <div className="modal is-active SignupModal">
             <div className="modal-background"></div>
             <div className="modal-content">
 
-                <div class="field">
-                    <label class="label">First Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="First Name" />
+                <div className="field">
+                    <label className="label">First Name</label>
+                    <div className="control">
+                        <input className="input" type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">Username</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input is-success" type="text" placeholder="Text input" value="bulma" />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-user"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-check"></i>
-                        </span>
-                    </div>
-                    <p class="help is-success">This username is available</p>
-                </div>
-
-                <div class="field">
-                    <label class="label">Email</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input is-danger" type="email" placeholder="Email input" value="hello@" />
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </span>
-                    </div>
-                    <p class="help is-danger">This email is invalid</p>
-                </div>
-
-                <div class="field">
-                    <label class="label">Subject</label>
-                    <div class="control">
-                        <div class="select">
-                            <select>
-                                <option>Select dropdown</option>
-                                <option>With options</option>
-                            </select>
-                        </div>
+                <div className="field">
+                    <label className="label">Last Name</label>
+                    <div className="control">
+                        <input className="input" type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">Message</label>
-                    <div class="control">
-                        <textarea class="textarea" placeholder="Textarea"></textarea>
+                <div className="field">
+                    <label className="label">Username</label>
+                    <div className="control">
+                        <input className="input" type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
                     </div>
                 </div>
 
-                <div class="field">
-                    <div class="control">
-                        <label class="checkbox">
-                            <input type="checkbox" />
+                <div className="field">
+                    <label className="label">Email</label>
+                    <div className="control">
+                        <input className="input" type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    </div>
+                </div>
+
+                <div className="field">
+                    <label className="label">Password</label>
+                    <div className="control">
+                        <input className="input" type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    </div>
+                </div>
+
+                <div className="field">
+                    <label className="label">Birthdate</label>
+                    <div className="control">
+                        <input className="input" type="date" placeholder="" value={birthdate} onChange={(e) => setBirthdate(e.target.value)}/>
+                    </div>
+                </div>
+
+
+                <div className="field">
+                    <div className="control">
+                        <label className="checkbox">
+                            <input type="checkbox" checked={acceptsTerms} onChange={() => setAcceptsTerms(!acceptsTerms)}/>
                             I agree to the <a href="#">terms and conditions</a>
                         </label>
                     </div>
                 </div>
 
-                <div class="field">
-                    <div class="control">
-                        <label class="radio">
-                            <input type="radio" name="question" />
-                            Yes
-    </label>
-                        <label class="radio">
-                            <input type="radio" name="question" />
-                            No
-    </label>
-                    </div>
-                </div>
 
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button class="button is-link">Submit</button>
+
+                <div className="field is-grouped">
+                    <div className="control">
+                        <button className="button is-link">Submit</button>
                     </div>
-                    <div class="control">
-                        <button class="button is-link is-light">Cancel</button>
+                    <div className="control">
+                        <button onClick={props.closeModal} className="button is-link is-light">Cancel</button>
                     </div>
                 </div>
             </div>
