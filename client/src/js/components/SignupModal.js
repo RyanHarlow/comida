@@ -11,6 +11,8 @@ function SignupModal(props) {
     const [password, setPassword] = useState('');
     const [birthdate, setBirthdate] = useState('');
     const [acceptsTerms, setAcceptsTerms] = useState(false);
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('');
 
 
     const handleSubmit = () => {
@@ -24,7 +26,6 @@ function SignupModal(props) {
             birthdate,
             acceptsTerms
         }
-        console.log(data)
 
         axios({
             url: '/api/users',
@@ -33,7 +34,13 @@ function SignupModal(props) {
             data: data,
 
         }).then((res) => {
-            console.log(res.data)
+            if(res.data.err){
+                setSuccess('');
+                setError(res.data.err)
+            }else if(res.data.success){
+                setError('');
+                setSuccess(res.data.success)
+            }
         }).catch(err => {
             console.log(err)
         })
@@ -107,6 +114,8 @@ function SignupModal(props) {
                     <div className="control">
                         <button onClick={props.closeModal} className="button is-link is-light">Cancel</button>
                     </div>
+    {error && <div style={{color: 'red'}} className='error'>{error}</div>}
+    {success && <div>{success}</div>}
                 </div>
             </div>
             <button onClick={props.closeModal} className="modal-close is-large" aria-label="close"></button>
