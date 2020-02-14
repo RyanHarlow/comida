@@ -17,17 +17,7 @@ const createUser = async (request, response) => {
   
     const { password, firstName, lastName, username, email, birthdate, acceptsTerms } = request.body;
 
-    if(!validator.isEmail(email)){
-      response.json({err: 'Must Enter Valid Email'})
-    }
-
-    if(!schema.validate(password)){
-      response.json({err: 'Password must be over 8 characters and contain uppercase lowercase and numbers'})
-    }
-
-    if(!acceptsTerms){
-      response.json({err: 'Must Accept Terms'})
-    }    
+  
 
 
     bcrypt.hash(password, saltRounds, async function(err, hash) {
@@ -38,7 +28,14 @@ const createUser = async (request, response) => {
 
 const usernameTaken = await pool.query('SELECT * FROM person WHERE username = $1', [username])
 const emailTaken = await pool.query('SELECT * FROM person WHERE email = $1', [email])
-if(usernameTaken.rows[0]){
+
+if(!validator.isEmail(email)){
+  response.json({err: 'Must Enter Valid Email'})
+}else if(!schema.validate(password)){
+  response.json({err: 'Password must be over 8 characters and contain uppercase lowercase and numbers'})
+}else if(!acceptsTerms){
+  response.json({err: 'Must Accept Terms'})
+}else if(usernameTaken.rows[0]){
   response.json({err: 'Username Taken'})
 }else if(emailTaken.rows[0]){
   response.json({err: 'There is already an account associated with this email'})
