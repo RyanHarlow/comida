@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(session({
     key: 'user_sid',
     store: new (require('connect-pg-simple')(session))(),
-    secret: 'somerandonstuffs',
+    secret: process.env.SESSIONSECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
