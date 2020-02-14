@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './SignupModal.css'
+import axios from 'axios';
 
 function SignupModal(props) {
 
@@ -10,6 +11,33 @@ function SignupModal(props) {
     const [password, setPassword] = useState('');
     const [birthdate, setBirthdate] = useState('');
     const [acceptsTerms, setAcceptsTerms] = useState(false);
+
+
+    const handleSubmit = () => {
+
+        const data = {
+            firstName,
+            lastName,
+            username,
+            email,
+            password,
+            birthdate,
+            acceptsTerms
+        }
+        console.log(data)
+
+        axios({
+            url: '/api/users',
+            method: 'POST',
+            contentType: 'application/json',
+            data: data,
+
+        }).then((res) => {
+            console.log(res.data)
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     
 
@@ -74,7 +102,7 @@ function SignupModal(props) {
 
                 <div className="field is-grouped">
                     <div className="control">
-                        <button className="button is-link">Submit</button>
+                        <button onClick={handleSubmit} className="button is-link">Submit</button>
                     </div>
                     <div className="control">
                         <button onClick={props.closeModal} className="button is-link is-light">Cancel</button>
