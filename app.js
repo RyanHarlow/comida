@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const session = require('express-session');
 require('dotenv').config();
 const PORT = process.env.PORT || 3001;
 const apiRouter = require('./api/api')
@@ -11,6 +12,17 @@ const apiRouter = require('./api/api')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(session({
+    key: 'user_sid',
+    store: new (require('connect-pg-simple')(session))(),
+    secret: 'somerandonstuffs',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}));
 
 app.use('/api', apiRouter)
 

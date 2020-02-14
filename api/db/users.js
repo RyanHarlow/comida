@@ -3,6 +3,7 @@ const validator = require('validator');
 const passwordValidator = require('password-validator');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const session = require('express-session')
 
 
 var schema = new passwordValidator();
@@ -47,6 +48,7 @@ pool
       .query(text, values)
       .then(res => {
         client.release()
+        request.session.user = username;
         response.json({success: 'Account Created Successfully'})
       })
       .catch(err => {
