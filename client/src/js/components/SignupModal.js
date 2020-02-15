@@ -1,6 +1,14 @@
 import React, {useState} from 'react';
+import { connect } from "react-redux";
+import { setLoggedIn } from "../actions/index";
 import './SignupModal.css'
 import axios from 'axios';
+
+function mapDispatchToProps(dispatch) {
+    return {
+      setLoggedIn: logged => dispatch(setLoggedIn(logged))
+    };
+  }
 
 function SignupModal(props) {
 
@@ -40,6 +48,8 @@ function SignupModal(props) {
             }else if(res.data.success){
                 setError('');
                 setSuccess(res.data.success)
+                props.closeModal();
+                props.setLoggedIn(true);
             }
         }).catch(err => {
             console.log(err)
@@ -123,4 +133,11 @@ function SignupModal(props) {
     )
 }
 
-export default SignupModal;
+
+
+const connectedSignupModal = connect(
+    null,
+    mapDispatchToProps
+  )(SignupModal);
+  
+  export default connectedSignupModal;
