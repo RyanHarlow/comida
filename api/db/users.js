@@ -85,10 +85,25 @@ const loginUser = async (request, response) => {
     });
   }
 }
+
+const logoutUser = (request, response) => {
+  if (request.session) {
+    request.session.destroy(function(err) {
+      if(err) {
+        response.json({err});
+      } else {
+        response.send({success: 'User Logged Out'})
+      }
+    });
+  }else{
+    response.send({success: 'No User Logged in'})
+  }
+}
   
 
 module.exports = { 
   createUser: createUser,
   getCurrentUser: getCurrentUser,
-  loginUser: loginUser
+  loginUser: loginUser,
+  logoutUser: logoutUser
 };

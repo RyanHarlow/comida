@@ -1,18 +1,40 @@
 import React, { useState } from 'react';
 import 'bulma/css/bulma.css'
 import logo from '../../res/logo.svg';
-import { connect } from 'react-redux';
 import SignupModal from './SignupModal';
 import LoginModal from './LoginModal';
+import axios from 'axios';
+import { connect } from "react-redux";
+import { setLoggedIn } from "../actions/index";
 
 
 const mapStateToProps = state => {
     return { isLoggedIn: state.isLoggedIn };
   };
 
+  function mapDispatchToProps(dispatch) {
+    return {
+      setLoggedIn: logged => dispatch(setLoggedIn(logged))
+    };
+  }
+
 
 
 function Navbar(props) {
+
+    let handleLogoutClick = () => {
+        axios.post('/api/users/logout')
+        .then(res => {
+            if(res.data.success){
+                props.setLoggedIn(false);
+                console.log(res.data)
+            }else{
+                console.log(res.data.err)
+            }
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     let buttons = (
         <div className="buttons">
@@ -27,7 +49,7 @@ function Navbar(props) {
 
     if(props.isLoggedIn){
         buttons = (<div className="buttons">
-        <button className="button is-primary">
+        <button onClick={handleLogoutClick} className="button is-primary">
             <strong>Logout</strong>
         </button>
     </div>)
@@ -38,6 +60,8 @@ function Navbar(props) {
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const burgerClasses = menuOpen ? 'navbar-burger burger is-active' : 'navbar-burger burger';
     const menuClasses = menuOpen ? 'navbar-menu is-active' : 'navbar-menu';
+
+
 
     return (
         <nav className="navbar is-success" role="navigation" aria-label="main navigation">
@@ -91,4 +115,7 @@ function Navbar(props) {
     )
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Navbar);
