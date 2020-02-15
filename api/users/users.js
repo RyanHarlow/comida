@@ -10,4 +10,8 @@ router.post('/', (req, res) => {
     users.createUser(req, res);
 });
 
+router.post('/login', (req, res) => {
+    users.loginUser(req, res);
+})
+
 module.exports = router;

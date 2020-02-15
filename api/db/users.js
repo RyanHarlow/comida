@@ -16,7 +16,9 @@ schema
 
 const createUser = async (request, response) => {
 
-  const { password, firstName, lastName, username, email, birthdate, acceptsTerms } = request.body;
+  let { password, firstName, lastName, username, email, birthdate, acceptsTerms } = request.body;
+
+  email = email.toLowerCase();
 
   bcrypt.hash(password, saltRounds, async function (err, hash) {
 
@@ -64,9 +66,29 @@ const getCurrentUser = (request, response) => {
     response.send({loggedIn: false})
   }
 }
+
+const loginUser = async (request, response) => {
+  let { password, email } = request.body;
+  email = email.toLowerCase();
+  const user = await pool.query('SELECT * FROM person WHERE email = $1', [email])
+  if(!user.rows){
+    response.send({err: 'Incorrect Email or Password'})
+  }else{
+    bcrypt.compare(password, user.rows[0].password)
+    .then(function(result) {
+      if(!result){
+        response.send({err: 'Incorrect Email or Password'})
+      }else{
+        request.session.user = user.rows[0].username;
+        response.json({ success: 'Logged In' })
+      }  
+    });
+  }
+}
   
 
 module.exports = { 
   createUser: createUser,
-  getCurrentUser: getCurrentUser
+  getCurrentUser: getCurrentUser,
+  loginUser: loginUser
 };
