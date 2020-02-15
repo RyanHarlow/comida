@@ -5,11 +5,27 @@ import Footer from './Footer';
 import './App.css';
 import Map from './Map'
 import { Route } from 'react-router-dom';
+import axios from 'axios';
+import { connect } from "react-redux";
+import { setLoggedIn } from "../actions/index";
 
-function App() {
+function mapDispatchToProps(dispatch) {
+  return {
+    setLoggedIn: logged => dispatch(setLoggedIn(logged))
+  };
+}
+
+function App(props) {
 
   useEffect(() => {
-    
+    axios.get('/api/users')
+    .then(res => {
+      if(res.data.loggedIn){
+        props.setLoggedIn(true);
+      }
+    }).catch(err => {
+      console.log(err);
+    })
   }, []);
 
   return (
@@ -22,4 +38,9 @@ function App() {
   );
 }
 
-export default App;
+const connectedApp = connect(
+  null,
+  mapDispatchToProps
+)(App);
+
+export default connectedApp;
