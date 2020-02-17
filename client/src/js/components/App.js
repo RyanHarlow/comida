@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import Navbar from './Navbar';
 import LandingPage from './LandingPage';
+import AddNewLocation from './AddNewLocation';
 import Footer from './Footer';
 import './App.css';
 import Map from './Map'
@@ -15,13 +16,17 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const mapStateToProps = state => {
+  return { isLoggedIn: state.isLoggedIn };
+};
+
 function App(props) {
 
   useEffect(() => {
     axios.get('/api/users')
     .then(res => {
-      if(res.data.loggedIn){
-        props.setLoggedIn(true);
+      if(!res.data.loggedIn){
+        props.setLoggedIn(false);
       }
     }).catch(err => {
       console.log(err);
@@ -33,13 +38,14 @@ function App(props) {
       <Navbar />
       <Route exact path='/' component={LandingPage} />
       <Route exact path='/map' component={Map} />
+      <Route exact path='/add' component={AddNewLocation} />
       <Footer />
     </div>
   );
 }
 
 const connectedApp = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App);
 

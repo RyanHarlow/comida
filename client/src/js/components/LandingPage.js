@@ -18,9 +18,7 @@ export default function LandingPage(props) {
                   </h1>
                             </div>
                         </div>
-                        {/* <div className='intro-column column'>
-                            <img src={eating} alt="image of people eating" />
-                        </div> */}
+                        
                     </div>
                 </div>
             </div>
