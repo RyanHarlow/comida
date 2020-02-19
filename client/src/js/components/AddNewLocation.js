@@ -18,15 +18,24 @@ function AddNewLocation(props) {
     const [tags, setTags] = useState('');
     const [rating, setRating] = useState(5);
     const [review, setReview] = useState('');
+    const [coor, setCoor] = useState([19.4326, -99.1332])
+
 
     const handleSubmit = () => {
-        const data = {name, tags, rating, review}
+        const data = {
+            name,
+            tags,
+            rating,
+            review,
+            lat: coor[0],
+            long: coor[1]
+        }
         axios.post('/api/places', data)
-        .then(res => {
-            console.log(res);
-        }).catch(err => {
-            console.log(err);
-        })
+            .then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            })
 
     }
 
@@ -36,7 +45,7 @@ function AddNewLocation(props) {
     else {
         return (
             <div className={'AddNewLocation'}>
-                <AddNewLocationMap />
+                <AddNewLocationMap coor={coor} setCoor={setCoor} />
                 <AddNewLocationForm
                     name={name}
                     setName={setName}

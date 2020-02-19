@@ -13,8 +13,8 @@ class AddNewLocationMap extends Component {
             viewport: {
                 width: '100vw',
                 height: '60vh',
-                latitude: 19.4326,
-                longitude: -99.1332,
+                latitude: this.props.coor[0],
+                longitude: this.props.coor[1],
                 zoom: 11
             },
         };
@@ -24,7 +24,10 @@ class AddNewLocationMap extends Component {
         return(
         <ReactMapGL
             {...this.state.viewport}
-            onViewportChange={(viewport) => this.setState({ viewport })}
+            onViewportChange={(viewport) => {
+                this.setState({ viewport })
+                this.props.setCoor([viewport.latitude, viewport.longitude])
+            }}
             mapboxApiAccessToken='pk.eyJ1Ijoicnlhbmhhcmxvdzk1IiwiYSI6ImNrNTJ1c2NtbDAxdzczZ250eGZ5ZXYyY2gifQ.2EN37mO-Fn8QNmu-FoOFDA'
             mapStyle="mapbox://styles/mapbox/streets-v11">
             

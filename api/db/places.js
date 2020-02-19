@@ -25,6 +25,7 @@ const addStand = async (request, response) => {
   const {name, tags, rating, review} = request.body;
   
   const queryText = 'INSERT INTO stand (long, lat, name, tags) VALUES ($1, $2, $3, $4) RETURNING *'
+  const standValues = []
 
 
 }
