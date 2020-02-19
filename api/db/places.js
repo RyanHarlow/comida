@@ -19,4 +19,15 @@ db
   })
 }
 
-module.exports = {getAllStands: getAllStands};
+const addStand = async (request, response) => {
+  const username = request.session.user;
+  const user = await db.query('SELECT * FROM person WHERE username = $1', [username]);
+  const {name, tags, rating, review} = request.body;
+  
+  const queryText = 'INSERT INTO stand (long, lat, name, tags) VALUES ($1, $2, $3, $4) RETURNING *'
+
+
+}
+
+
+module.exports = {getAllStands: getAllStands, addStand: addStand};

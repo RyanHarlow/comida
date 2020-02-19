@@ -6,4 +6,8 @@ router.get('/', (req, res) => {
     places.getAllStands(req, res);
 });
 
+router.post('/', (req, res) => {
+    places.addStand(req, res);
+})
+
 module.exports = router;
