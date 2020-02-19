@@ -32,6 +32,7 @@ const AddNewLocationForm = (props) => {
             </div>
             <div className="control">
                 <button onClick={props.handleSubmit} className="button is-link">Submit</button>
+    <div style={{color: 'red'}}>{props.error}</div>
             </div>
         </div>
     )

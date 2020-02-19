@@ -2,6 +2,7 @@ import React from 'react';
 import eat from '../../res/eat.svg';
 import explore from '../../res/explore.svg';
 import rating from '../../res/rating.svg';
+import {Link} from 'react-router-dom'
 import './LandingPage.css'
 
 export default function LandingPage(props) {
@@ -20,6 +21,9 @@ export default function LandingPage(props) {
                         </div>
                         
                     </div>
+                    <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                        <Link to='/map'><button className='button is-link'>Explore Now</button></Link>
+                        </div>
                 </div>
             </div>
             </section>

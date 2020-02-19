@@ -31,7 +31,7 @@ class AddNewLocationMap extends Component {
             mapboxApiAccessToken='pk.eyJ1Ijoicnlhbmhhcmxvdzk1IiwiYSI6ImNrNTJ1c2NtbDAxdzczZ250eGZ5ZXYyY2gifQ.2EN37mO-Fn8QNmu-FoOFDA'
             mapStyle="mapbox://styles/mapbox/streets-v11">
             
-            <Marker latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-6} offsetTop={-20}><FontAwesomeIcon icon={faMapMarker} /></Marker>
+            <Marker latitude={this.state.viewport.latitude} longitude={this.state.viewport.longitude} offsetLeft={-6} offsetTop={-20}><FontAwesomeIcon style={{color: 'red'}} icon={faMapMarker} /></Marker>
         </ReactMapGL>
         )
     }

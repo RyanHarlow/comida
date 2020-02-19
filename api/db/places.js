@@ -25,6 +25,10 @@ const addStand = async (request, response) => {
   const user = await db.query('SELECT * FROM person WHERE username = $1', [username]);
   const {name, tags, rating, reviewText, lat, long} = request.body;
   const reviewDate = Date.now();
+
+  if(!name || !tags || !rating || !reviewText || !lat || !long){
+    response.send({err: 'Must Fill Out All Fields'});
+  }
   
   const standQueryText = 'INSERT INTO stand (long, lat, name, tags) VALUES ($1, $2, $3, $4) RETURNING *'
   const standValues = [long, lat, name, [tags]];

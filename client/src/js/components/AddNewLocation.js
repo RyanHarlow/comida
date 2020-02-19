@@ -13,12 +13,13 @@ const mapStateToProps = state => {
 
 
 function AddNewLocation(props) {
-
+    console.log(props)
     const [name, setName] = useState('');
     const [tags, setTags] = useState('');
     const [rating, setRating] = useState(5);
     const [review, setReview] = useState('');
     const [coor, setCoor] = useState([19.4326, -99.1332])
+    const [error, setError] = useState('');
 
 
     const handleSubmit = () => {
@@ -26,13 +27,17 @@ function AddNewLocation(props) {
             name,
             tags,
             rating,
-            review,
+            reviewText: review,
             lat: coor[0],
             long: coor[1]
         }
         axios.post('/api/places', data)
             .then(res => {
-                console.log(res);
+                if(res.data.success){
+                    props.history.push('/map');
+                }else if(res.data.err){
+                    setError(res.data.err);
+                }
             }).catch(err => {
                 console.log(err);
             })
@@ -55,7 +60,8 @@ function AddNewLocation(props) {
                     setRating={setRating}
                     review={review}
                     setReview={setReview}
-                    handleSubmit={handleSubmit} />
+                    handleSubmit={handleSubmit}
+                    error={error} />
             </div>
         )
 

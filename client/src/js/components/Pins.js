@@ -10,7 +10,7 @@ export default class Pins extends PureComponent{
         const {data, onClick} = this.props;
         return data.map((el, i) => {
             return(
-                <Marker key={el.id} latitude={el.lat} longitude={el.long} offsetLeft={-6} offsetTop={-20}><FontAwesomeIcon onClick={() => onClick(i)} icon={faMapMarker} /></Marker>
+                <Marker key={el.id} latitude={el.lat} longitude={el.long} offsetLeft={-6} offsetTop={-20}><FontAwesomeIcon style={{color: 'red'}} onClick={() => onClick(i)} icon={faMapMarker} /></Marker>
             )
         })
     }
