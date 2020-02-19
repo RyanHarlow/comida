@@ -27,7 +27,7 @@ export default function LandingPage(props) {
                 </div>
             </div>
             </section>
-            <section style={{marginTop: '3rem'}} className='container'>
+            <section style={{marginTop: '3rem'}} className='info-card-container container'>
             <div className='info-cards columns'>
                 <div className="card column" style={{margin: '2rem 3rem 0'}}>
                     <div className="card-image">
