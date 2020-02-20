@@ -2,52 +2,65 @@ const db = require('./db');
 
 
 const getAllStands = (request, response) => {
-
-db
-.connect()
-  .then(client => {
-    return client
-      .query('SELECT * FROM stand')
-      .then(res => {
-        client.release()
-        response.json(res.rows)
-      })
-      .catch(err => {
-        client.release()
-        console.log(err.stack)
-      })
-  })
+  db
+    .connect()
+    .then(client => {
+      return client
+        .query('SELECT * FROM stand')
+        .then(res => {
+          client.release()
+          response.json(res.rows)
+        })
+        .catch(err => {
+          client.release()
+          console.log(err.stack)
+        })
+    })
 }
 
 const addStand = async (request, response) => {
+  try {
+    const username = request.session.user;
+    const user = await db.query('SELECT * FROM person WHERE username = $1', [username]);
+    const { name, tags, rating, reviewText, lat, long } = request.body;
+    const reviewDate = Date.now();
+
+    if (!name || !tags || !rating || !reviewText || !lat || !long) {
+      response.send({ err: 'Must Fill Out All Fields' });
+    }
+
+    const standQueryText = 'INSERT INTO stand (long, lat, name, tags) VALUES ($1, $2, $3, $4) RETURNING *'
+    const standValues = [long, lat, name, [tags]];
+
+    const stand = await db.query(standQueryText, standValues);
+
+    const reviewQueryText = 'INSERT INTO REVIEW (stars, text_content, user_id, stand_id, date) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+    const reviewValues = [rating, reviewText, user.rows[0].id, stand.rows[0].id, reviewDate];
+    const review = await db.query(reviewQueryText, reviewValues)
+
+    response.send({ success: 'Location Added' })
+
+  } catch (err) {
+    response.send({ err })
+  }
+}
+
+const getStandById = async (request, response) => {
   try{
-  const username = request.session.user;
-  const user = await db.query('SELECT * FROM person WHERE username = $1', [username]);
-  const {name, tags, rating, reviewText, lat, long} = request.body;
-  const reviewDate = Date.now();
+  const id = request.params.id;
+  const queryText = 'SELECT * FROM stand WHERE id = $1'
+    const value = [id];
 
-  if(!name || !tags || !rating || !reviewText || !lat || !long){
-    response.send({err: 'Must Fill Out All Fields'});
+    const stand = await db.query(queryText, value);
+    response.json({success: stand.rows[0]})
+  }catch(err) {
+    response.json({err: err})
   }
-  
-  const standQueryText = 'INSERT INTO stand (long, lat, name, tags) VALUES ($1, $2, $3, $4) RETURNING *'
-  const standValues = [long, lat, name, [tags]];
-  
- const stand = await db.query(standQueryText, standValues);
- 
- const reviewQueryText = 'INSERT INTO REVIEW (stars, text_content, user_id, stand_id, date) VALUES ($1, $2, $3, $4, $5) RETURNING *';
- const reviewValues = [rating, reviewText, user.rows[0].id, stand.rows[0].id, reviewDate]; 
- const review = await db.query(reviewQueryText, reviewValues)
-  
-  response.send({success: 'Location Added'})
-
-}catch(err){
-    response.send({err})
-  }
-
-
-
 }
 
 
-module.exports = {getAllStands: getAllStands, addStand: addStand};
+module.exports = {
+  getAllStands: getAllStands,
+  addStand: addStand,
+  getStandById: getStandById
+};
