@@ -3,6 +3,7 @@ import ReactMapGL, {Popup} from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import axios from 'axios';
 import Pins from './Pins';
+import {Link} from 'react-router-dom';
 
 
 class Map extends Component {
@@ -17,7 +18,8 @@ class Map extends Component {
               zoom: 11
             },
             markers: [],
-            popup: null
+            popup: null,
+            rating: null
           };
           this.handleMarkerClick = this.handleMarkerClick.bind(this);
     }
@@ -35,18 +37,29 @@ class Map extends Component {
     }
 
     handleMarkerClick(markerId){
+      let rating = null;
+      axios.get(`/api/review/stars/${this.state.markers[markerId].id}`)
+      .then(res => {
+        rating = res.data.rating;
         this.setState((st) => {
-            return({
-                ...st,
-                popup: st.markers[markerId]
-            }
-            )
-        })
+          return({
+              ...st,
+              popup: st.markers[markerId],
+              rating: rating
+          }
+          )
+      })
+      }).catch(err => {
+        console.log(err);
+      })
+
+        
     }
 
     _renderPopup() {
         const {popup} = this.state;
-    
+        
+
         return (
           popup && (
             <Popup
@@ -54,10 +67,13 @@ class Map extends Component {
               anchor="top"
               longitude={popup.long}
               latitude={popup.lat}
-              closeOnClick={true}
+              closeOnClick={false}
               onClose={() => this.setState({popup: null})}
             >
-              {popup.name}
+              <Link to={`/stand/${popup.id}`}>{popup.name}</Link>
+              <div>
+              rating: {this.state.rating} stars
+              </div>
             </Popup>
           )
         );
