@@ -45,6 +45,7 @@ function AddNewLocation(props) {
     }
 
     if (!props.isLoggedIn) {
+        props.setLoginModalOpen(true);
         return (<Redirect to="/" />)
     }
     else {

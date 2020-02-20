@@ -4,6 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import axios from 'axios';
 import Pins from './Pins';
 import {Link} from 'react-router-dom';
+import StarDisplay from './StarDisplay';
 
 
 class Map extends Component {
@@ -72,7 +73,7 @@ class Map extends Component {
             >
               <Link to={`/stand/${popup.id}`}>{popup.name}</Link>
               <div>
-              rating: {this.state.rating} stars
+              <StarDisplay rating={this.state.rating}/>
               </div>
             </Popup>
           )

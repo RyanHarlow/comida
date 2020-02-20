@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import LandingPage from './LandingPage';
 import AddNewLocation from './AddNewLocation';
@@ -25,6 +25,8 @@ const mapStateToProps = state => {
 
 function App(props) {
 
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+
   useEffect(() => {
     axios.get('/api/users')
       .then(res => {
@@ -38,11 +40,11 @@ function App(props) {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar loginModalOpen={loginModalOpen} setLoginModalOpen={setLoginModalOpen} />
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/map' component={Map} />
-        <Route exact path='/add' component={AddNewLocation} />
+        <Route exact path='/add'><AddNewLocation setLoginModalOpen={setLoginModalOpen}/></Route>
         <Route path='/stand/:id' component={Stand} />
         <Route component={NoMatch} />
       </Switch>

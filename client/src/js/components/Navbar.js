@@ -41,7 +41,7 @@ function Navbar(props) {
                             <button className="button is-primary" onClick={() => setSignupModalOpen(true)}>
                                 <strong>Sign up</strong>
                             </button>
-                            <button className="button is-light" onClick={() => setLoginModalOpen(true)}>
+                            <button className="button is-light" onClick={() => props.setLoginModalOpen(true)}>
                                 Log in
                             </button>
                         </div>
@@ -57,7 +57,6 @@ function Navbar(props) {
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [signupModalOpen, setSignupModalOpen] = useState(false);
-    const [loginModalOpen, setLoginModalOpen] = useState(false);
     const burgerClasses = menuOpen ? 'navbar-burger burger is-active' : 'navbar-burger burger';
     const menuClasses = menuOpen ? 'navbar-menu is-active' : 'navbar-menu';
 
@@ -109,7 +108,7 @@ function Navbar(props) {
                     </div>
                 </div>
             </div>
-            {loginModalOpen && <LoginModal closeModal={() => setLoginModalOpen(!loginModalOpen)}/>}
+            {props.loginModalOpen && <LoginModal closeModal={() => props.setLoginModalOpen(!props.loginModalOpen)}/>}
             {signupModalOpen && <SignupModal closeModal={() => setSignupModalOpen(!signupModalOpen)}/>}
         </nav>
     )
