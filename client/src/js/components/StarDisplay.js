@@ -6,9 +6,9 @@ const StarDisplay = (props) => {
     let stars = [];
     for(let i = 0; i < 5; i++){
         if(i < props.rating){
-            stars.push(<StarDisplayItem highlighted/>)
+            stars.push(<StarDisplayItem key={i} highlighted/>)
         }else{
-            stars.push(<StarDisplayItem />)
+            stars.push(<StarDisplayItem key={i} />)
         }
     }
     
