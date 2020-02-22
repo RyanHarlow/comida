@@ -8,6 +8,7 @@ function Stand(props) {
     let { id } = useParams();
     let [place, setPlace] = useState({ lat: 19.4326, long: -99.1332 });
     let [rating, setRating] = useState(0)
+    let [reviews, setReviews] = useState([]);
 
     console.log(place);
     useEffect(() => {
@@ -20,7 +21,6 @@ function Stand(props) {
 
         axios.get(`/api/review/stars/${id}`)
         .then(res => {
-            console.log(res.data.rating)
             setRating(res.data.rating)
         }).catch(err => {
             console.log(err);

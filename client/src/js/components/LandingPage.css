@@ -9,8 +9,10 @@
 
 @media screen and (max-width: 768px) {
     .LandingPage {
-        background-color: hsl(204, 86%, 53%);
-        background-image: none;
+        background-image: url("/mobile-background.jpeg");
+        background-repeat: repeat;
+        background-color: hsl(171, 100%, 41%); 
+    
     }
 
      .info-card-container{
