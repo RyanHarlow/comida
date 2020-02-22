@@ -9,8 +9,9 @@ function Stand(props) {
     let [place, setPlace] = useState({ lat: 19.4326, long: -99.1332 });
     let [rating, setRating] = useState(0)
     let [reviews, setReviews] = useState([]);
+    let [page, setPage] = useState(1);
 
-    console.log(place);
+    
     useEffect(() => {
         axios.get(`/api/places/${id}`)
             .then(res => {
@@ -25,8 +26,32 @@ function Stand(props) {
         }).catch(err => {
             console.log(err);
         })
+
+        getReviews();
+
     }, []);
 
+    const getReviews = () => {
+        axios.get(`/api/review/${id}/?page=${page}`)
+        .then(res => {
+            setReviews([...reviews, ...res.data.success])
+        }).catch(err => {
+            console.log(err)
+        })
+
+    }
+
+    let reviewList = reviews.map((review) => {
+        <ReviewItem 
+            key={review.r_id} 
+            stars={review.r_stars}
+            text={review.r_text}
+            date={review.r_date}
+            username={review.username}
+            profilephoto={review.profile_photo}
+        />
+    })
+    
     return (
         <div className={'Stand'}>
             <StandMap longitude={place.long} latitude={place.lat} />
@@ -39,6 +64,7 @@ function Stand(props) {
                         <h2 className="subtitle">
                             <StarDisplay rating={rating} />
       </h2>
+      {reviewList}
                     </div>
                 </div>
             </section>
