@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import StandMap from './StandMap';
 import axios from 'axios';
 import StarDisplay from './StarDisplay';
+import ReviewItem from './ReviewItem';
 
 function Stand(props) {
     let { id } = useParams();
