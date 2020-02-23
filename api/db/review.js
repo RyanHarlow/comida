@@ -1,9 +1,21 @@
 const pool = require('./db');
 
 const addReview = async (request, response) => {
-    const {reviewText, rating} = request.body;
-    const queryText = 'insert into '
-    const review = await pool.query()
+    try{
+    const {reviewText, rating, standId} = request.body;
+    const userQueryText = 'select * from person where username = $1'
+    const userVals = [request.session.user]
+    const user = await pool.query(userQueryText, userVals);
+    const userId = user.rows[0].id;
+    const reviewDate = new Date();
+    const reviewQueryText = 'insert into review(stars, text_content, user_id, stand_id, date) values ($1,$2,$3,$4,$5)';
+    const reviewVals = [rating, reviewText, userId, standId, reviewDate];
+    const review = await pool.query(reviewQueryText, reviewVals);
+    response.send({success: 'review added'})
+    
+    }catch(err){
+        response.send({err})
+    }
      
 }
 
@@ -28,7 +40,7 @@ const getReviewsById = async (request, response) => {
                             review r
                         INNER JOIN person p ON r.user_id = p.id
                         WHERE r.stand_id = $1
-                        ORDER BY r.id
+                        ORDER BY r.id desc
                         LIMIT 10
                         OFFSET $2;`;
     const queryVals = [id, offset];
