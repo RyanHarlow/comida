@@ -23,7 +23,7 @@ const addStand = async (request, response) => {
     const username = request.session.user;
     const user = await db.query('SELECT * FROM person WHERE username = $1', [username]);
     const { name, tags, rating, reviewText, lat, long } = request.body;
-    const reviewDate = Date.now();
+    const reviewDate = new Date();
 
     if (!name || !tags || !rating || !reviewText || !lat || !long) {
       response.send({ err: 'Must Fill Out All Fields' });

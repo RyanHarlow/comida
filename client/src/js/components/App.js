@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import LandingPage from './LandingPage';
 import AddNewLocation from './AddNewLocation';
 import Stand from './Stand'
+import Profile from './Profile';
 import NoMatch from './NoMatch'
 import Footer from './Footer';
 import './App.css';
@@ -46,6 +47,7 @@ function App(props) {
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/map' component={Map} />
         <Route exact path='/add'><AddNewLocation setLoginModalOpen={setLoginModalOpen}/></Route>
+        <Route path='/profile/:id' component={Profile} />
         <Route path='/stand/:id' component={Stand} />
         <Route component={NoMatch} />
       </Switch>
