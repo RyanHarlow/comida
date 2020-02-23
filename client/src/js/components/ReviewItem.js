@@ -6,17 +6,17 @@ function ReviewItem(props){
 
     return(
 
-<div class="card ReviewItem">
-  <header class="card-header">
-    <div class="card-header-title">
+<div className="card ReviewItem">
+  <header className="card-header">
+    <div className="card-header-title">
       {props.username}
     </div>
     <div className='ReviewItemStarDisplay'>
     <StarDisplay rating={props.stars} />
     </div>
   </header>
-  <div class="card-content">
-    <div class="content">
+  <div className="card-content">
+    <div className="content">
     <time>{Date(props.date).split(' ').slice(0,4).join(' ')}</time>
     <br />
         {props.text}
