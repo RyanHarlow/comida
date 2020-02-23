@@ -33,7 +33,14 @@ function Stand(props) {
 
     }, []);
 
+    useEffect(() => {
+        getReviews();
+    }, [page])
+
+
+
     const getReviews = () => {
+        console.log(page)
         axios.get(`/api/review/${id}/?page=${page}`)
         .then(res => {
             setReviews([...reviews, ...res.data.success])
@@ -60,7 +67,7 @@ function Stand(props) {
         <div className={'Stand'}>
             <StandMap longitude={place.long} latitude={place.lat} />
             <section className="hero">
-                <div className="hero-body">
+                <div style={{paddingBottom:'10px'}} className="hero-body">
                     <div className="container">
                         <h1 className="title">
                             {place.name}
@@ -73,6 +80,9 @@ function Stand(props) {
                     </div>
                 </div>
             </section>
+            <div style={{width: '100%', textAlign:'center', marginBottom:'10px'}}>
+            <button onClick={() => {setPage(page+1)}} className='button is-info'>Load More</button>
+            </div>
         </div>
     )
 }

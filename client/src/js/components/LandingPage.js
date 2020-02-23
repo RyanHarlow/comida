@@ -13,7 +13,7 @@ export default function LandingPage(props) {
                 <div className="container">
                     <div className='intro-columns columns is-vcentered' >
                         <div className='intro-column column' style={{textAlign: 'center'}}>
-                            <div className='intro-content'style={{textAlign: 'center'}}>
+                            <div className='intro-content' style={{textAlign: 'center'}}>
                                 <h1 className='title intro-title intro-hero' style={{margin: '0 auto', width: '70%'}}>
                                     Comida en La Calle is your one stop shop for finding new street food, writing reviews, and exploring new cuisine
                   </h1>

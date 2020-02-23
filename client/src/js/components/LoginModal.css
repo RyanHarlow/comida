@@ -1,3 +1,9 @@
 .LoginModal .modal-background{
     background-color: hsl(141, 53%, 53%)
 }
+
+@media screen and (max-width: 768px) {
+    .modal-content{
+        width: 90%
+    }
+}

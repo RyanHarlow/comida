@@ -17,7 +17,7 @@ function ReviewItem(props){
   </header>
   <div className="card-content">
     <div className="content">
-    <time>{Date(props.date).split(' ').slice(0,4).join(' ')}</time>
+    <time>{props.date.substring(0,10)}</time>
     <br />
         {props.text}
     </div>

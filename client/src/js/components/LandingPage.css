@@ -7,6 +7,10 @@
     color: white;
 }
 
+.intro-title{
+    background-color:  rgba(0,0,0,.7);
+}
+
 @media screen and (max-width: 768px) {
     .LandingPage {
         background-image: url("/mobile-background.jpeg");
