@@ -1,0 +1,25 @@
+SELECT
+    a.id id_a,
+    a.fruit fruit_a,
+    b.id id_b,
+    b.fruit fruit_b
+FROM
+    basket_a a
+INNER JOIN basket_b b ON a.fruit = b.fruit;
+
+
+select
+    r.stars r_stars,
+    r.text_content r_text,
+    r.date  r_date,
+    r.stand_id r_stand_id,
+    p.username username
+FROM
+    review r
+INNER JOIN person p ON r.user_id = p.id
+WHERE r.stand_id = 21
+ORDER BY r.id
+LIMIT 10
+OFFSET 20;
+
+

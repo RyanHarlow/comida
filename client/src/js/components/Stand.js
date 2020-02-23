@@ -43,6 +43,7 @@ function Stand(props) {
     }
 
     let reviewList = reviews.map((review) => {
+        return(
         <ReviewItem 
             key={review.r_id} 
             stars={review.r_stars}
@@ -51,6 +52,7 @@ function Stand(props) {
             username={review.username}
             profilephoto={review.profile_photo}
         />
+        )
     })
     
     return (
