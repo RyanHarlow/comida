@@ -4,13 +4,8 @@ import StandMap from './StandMap';
 import axios from 'axios';
 import StarDisplay from './StarDisplay';
 import ReviewItem from './ReviewItem';
-import { connect } from 'react-redux';
 import AddReview from './AddReview';
 
-
-const mapStateToProps = state => {
-    return { isLoggedIn: state.isLoggedIn };
-};
 
 function Stand(props) {
     let { id } = useParams();
@@ -18,14 +13,6 @@ function Stand(props) {
     let [rating, setRating] = useState(0)
     let [reviews, setReviews] = useState([]);
     let [page, setPage] = useState(1);
-
-  
-    let addReview = null;
-    if(props.isLoggedIn){
-        addReview = <AddReview />
-    }else{
-        addReview = 'please login to add review'
-    }
 
     useEffect(() => {
         axios.get(`/api/places/${id}`)
@@ -81,7 +68,7 @@ function Stand(props) {
                         <h2 className="subtitle">
                             <StarDisplay rating={rating} />
       </h2>
-      {addReview}
+      <AddReview id={id}/>
       {reviewList}
                     </div>
                 </div>
@@ -90,4 +77,4 @@ function Stand(props) {
     )
 }
 
-export default connect(mapStateToProps)(Stand);
+export default Stand;

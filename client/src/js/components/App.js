@@ -34,6 +34,7 @@ function App(props) {
           props.setLoggedIn(false);
         }
       }).catch(err => {
+        props.setLoggedIn(false);
         console.log(err);
       })
   }, []);

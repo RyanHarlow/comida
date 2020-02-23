@@ -1,7 +1,13 @@
 const pool = require('./db');
 
-const getStars = async (request, response) => {
+const addReview = async (request, response) => {
+    const {reviewText, rating} = request.body;
+    const queryText = 'insert into '
+    const review = await pool.query()
+     
+}
 
+const getStars = async (request, response) => {
     const stars = await pool.query('select avg(stars) from review where stand_id = $1', [request.params.id])
     const starValue = Math.round(stars.rows[0].avg);
     response.send({ rating: starValue })
@@ -10,7 +16,6 @@ const getStars = async (request, response) => {
 const getReviewsById = async (request, response) => {
     const id = Number(request.params.id);
     const offset = Number((request.query.page - 1) * 10) || 0;
-    console.log(id, offset)
     const queryText = `select
                         r.id r_id,
                         r.stars r_stars,
@@ -38,5 +43,6 @@ const getReviewsById = async (request, response) => {
 
 module.exports = {
     getStars: getStars,
-    getReviewsById: getReviewsById
+    getReviewsById: getReviewsById,
+    addReview: addReview
 }
