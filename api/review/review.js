@@ -17,6 +17,11 @@ router.get('/:id', (req, res) => {
     review.getReviewsById(req, res);
 })
 
+//route to get reviews from a users id
+router.get('/user/:id', (req, res) => {
+    review.getReviewsByUserId(req, res);
+})
+
 
 
 module.exports = router;
