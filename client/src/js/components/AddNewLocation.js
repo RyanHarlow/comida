@@ -5,6 +5,7 @@ import AddNewLocationMap from './AddNewLocationMap';
 import AddNewLocationForm from './AddNewLocationForm';
 import './AddNewLocation.css';
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
 
 const mapStateToProps = state => {
@@ -13,7 +14,6 @@ const mapStateToProps = state => {
 
 
 function AddNewLocation(props) {
-    console.log(props)
     const [name, setName] = useState('');
     const [tags, setTags] = useState('');
     const [rating, setRating] = useState(5);
@@ -33,6 +33,7 @@ function AddNewLocation(props) {
         }
         axios.post('/api/places', data)
             .then(res => {
+                console.log(props)
                 if(res.data.success){
                     props.history.push('/map');
                 }else if(res.data.err){
@@ -69,4 +70,4 @@ function AddNewLocation(props) {
     }
 }
 
-export default connect(mapStateToProps)(AddNewLocation);
+export default withRouter(connect(mapStateToProps)(AddNewLocation));
