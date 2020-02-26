@@ -11,6 +11,7 @@ function Profile(props) {
 
 
     let reviewList = reviews.map((review) => {
+        console.log(review)
         return(
         <ReviewItem 
             key={review.r_id} 
@@ -19,6 +20,7 @@ function Profile(props) {
             date={review.r_date}
             username={review.username}
             profilephoto={review.profile_photo}
+            userId={review.p_id}
         />
         )
     })

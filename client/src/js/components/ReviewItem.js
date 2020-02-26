@@ -1,6 +1,7 @@
 import React from 'react';
 import StarDisplay from './StarDisplay';
 import './ReviewItem.css'
+import {Link} from 'react-router-dom';
 
 function ReviewItem(props){
 
@@ -9,7 +10,7 @@ function ReviewItem(props){
 <div className="card ReviewItem">
   <header className="card-header">
     <div className="card-header-title">
-      {props.username}
+      <Link to={`/profile/${props.userId}`}>{props.username}</Link>
     </div>
     <div className='ReviewItemStarDisplay'>
     <StarDisplay rating={props.stars} />

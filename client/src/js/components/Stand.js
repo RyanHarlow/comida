@@ -40,7 +40,6 @@ function Stand(props) {
 
 
     const getReviews = () => {
-        console.log(page)
         axios.get(`/api/review/${id}/?page=${page}`)
         .then(res => {
             setReviews([...reviews, ...res.data.success])
@@ -59,6 +58,7 @@ function Stand(props) {
             date={review.r_date}
             username={review.username}
             profilephoto={review.profile_photo}
+            userId ={review.p_id}
         />
         )
     })

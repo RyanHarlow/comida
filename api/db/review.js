@@ -35,7 +35,8 @@ const getReviewsById = async (request, response) => {
                         r.date  r_date,
                         r.stand_id r_stand_id,
                         p.username username,
-                        p.profile_photo profile_photo
+                        p.profile_photo profile_photo,
+                        p.id p_id
                         FROM
                             review r
                         INNER JOIN person p ON r.user_id = p.id
