@@ -27,7 +27,6 @@ function Navbar(props) {
         .then(res => {
             if(res.data.success){
                 props.setLoggedIn(false);
-                console.log(res.data)
             }else{
                 console.log(res.data.err)
             }

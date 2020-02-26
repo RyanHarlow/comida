@@ -11,16 +11,15 @@ function Profile(props) {
 
 
     let reviewList = reviews.map((review) => {
-        console.log(review)
         return(
         <ReviewItem 
             key={review.r_id} 
             stars={review.r_stars}
             text={review.r_text}
             date={review.r_date}
-            username={review.username}
             profilephoto={review.profile_photo}
-            userId={review.p_id}
+            standName={review.s_name}
+            standId={review.r_stand_id}
         />
         )
     })
@@ -28,7 +27,6 @@ function Profile(props) {
     useEffect(() => {
         axios.get(`/api/review/user/${id}/?page=${page}`)
         .then(res => {
-            console.log(res.data.success)
             setUsername(res.data.success[0].username)
             setReviews([...reviews, ...res.data.success])
         }).catch(err => {
@@ -38,13 +36,13 @@ function Profile(props) {
 
     return (
         <div>
-            <section class="hero">
-                <div class="hero-body">
-                    <div class="container">
-                        <h1 class="title">
+            <section className="hero">
+                <div className="hero-body">
+                    <div className="container">
+                        <h1 className="title">
                             {username}
                         </h1>
-                        <h2 class="subtitle">
+                        <h2 className="subtitle">
                             Reviews
                         </h2>
                         {reviewList}

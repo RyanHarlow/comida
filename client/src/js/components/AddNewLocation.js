@@ -33,7 +33,6 @@ function AddNewLocation(props) {
         }
         axios.post('/api/places', data)
             .then(res => {
-                console.log(props)
                 if(res.data.success){
                     props.history.push('/map');
                 }else if(res.data.err){

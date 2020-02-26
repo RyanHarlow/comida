@@ -4,13 +4,20 @@ import './ReviewItem.css'
 import {Link} from 'react-router-dom';
 
 function ReviewItem(props){
+  let title;
+  if(props.userId){
+    title = (<Link to={`/profile/${props.userId}`}>{props.username}</Link>)
+  }else if(props.standName){
+    title = (<Link to={`/stand/${props.standId}`}>{props.standName}</Link>)
+  }
+  console.log(title)
 
     return(
 
 <div className="card ReviewItem">
   <header className="card-header">
     <div className="card-header-title">
-      <Link to={`/profile/${props.userId}`}>{props.username}</Link>
+      {title}
     </div>
     <div className='ReviewItemStarDisplay'>
     <StarDisplay rating={props.stars} />
