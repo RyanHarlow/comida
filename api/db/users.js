@@ -101,6 +101,7 @@ const logoutUser = (request, response) => {
 }
 
 const getUserById = async (request, response) => {
+  try{
   const id = request.params.id;
   const offset = ((request.query.page - 1) * 10) || 0;
   const queryText = `SELECT
@@ -126,7 +127,10 @@ const getUserById = async (request, response) => {
 
   const user = await pool.query(queryText, queryVals);
   response.send({success: user.rows})
-
+  
+  }catch(err){
+    response.send({err: err});
+  }
 }
   
 
