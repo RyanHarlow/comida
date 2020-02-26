@@ -99,11 +99,41 @@ const logoutUser = (request, response) => {
     response.send({success: 'No User Logged in'})
   }
 }
+
+const getUserById = async (request, response) => {
+  const id = request.params.id;
+  const offset = ((request.query.page - 1) * 10) || 0;
+  const queryText = `SELECT
+  p.id p_id,
+  p.username p_username,
+  p.profile_photo p_photo,
+  r.id r_id,
+  r.stars r_stars,
+  r.text_content r_content,
+  r.stand_id r_standId,
+  r.date r_date,
+  s.name s_name,
+  s.id s_id
+  FROM person p
+  INNER JOIN review r ON p.id = r.user_id
+  INNER JOIN stand s ON r.stand_id = s.id
+  WHERE p.id = $1
+  ORDER BY r.id
+  LIMIT 10
+  OFFSET $2;`
+
+  const queryVals = [id, offset];
+
+  const user = await pool.query(queryText, queryVals);
+  response.send({success: user.rows})
+
+}
   
 
 module.exports = { 
   createUser: createUser,
   getCurrentUser: getCurrentUser,
   loginUser: loginUser,
-  logoutUser: logoutUser
+  logoutUser: logoutUser,
+  getUserById: getUserById
 };

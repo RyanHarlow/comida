@@ -7,6 +7,24 @@ FROM
     basket_a a
 INNER JOIN basket_b b ON a.fruit = b.fruit;
 
+SELECT
+    p.id p_id,
+    p.username p_username,
+    p.profile_photo p_photo,
+    r.id r_id,
+    r.stars r_stars,
+    r.text_content r_content,
+    r.stand_id r_standId,
+    r.date r_date,
+    s.name s_name,
+    s.id s_id
+    FROM person p
+    INNER JOIN review r ON p.id = r.user_id
+    INNER JOIN stand s ON r.stand_id = s.id
+    WHERE p.id = 40
+    ORDER BY r.id
+    LIMIT 10
+    OFFSET 20;
 
 select
     r.stars r_stars,
@@ -23,3 +41,48 @@ LIMIT 10
 OFFSET 20;
 
 
+
+
+
+create table stand(
+    id SERIAL,
+    long DOUBLE PRECISION NOT NULL,
+    lat DOUBLE PRECISION NOT NULL,
+    name VARCHAR NOT NULL,
+    photo VARCHAR[],
+    owner_id INT,
+    tags VARCHAR[]
+);
+
+CREATE TABLE review(
+    id SERIAL,
+    stars INT NOT NULL,
+    text_content VARCHAR,
+    user_id INT NOT NULL,
+    stand_id INT NOT NULL,
+    DATE VARCHAR NOT NULL
+);
+
+CREATE TABLE person(
+    id SERIAL,
+    first_name VARCHAR NOT NULL,
+    last_name VARCHAR NOT NULL,
+    username VARCHAR UNIQUE NOT NULL,
+    email VARCHAR UNIQUE NOT NULL,
+    password VARCHAR NOT NULL,
+    profile_photo VARCHAR,
+   	birthdate VARCHAR,
+    accepts_terms BOOLEAN
+);
+
+
+CREATE TABLE "session" (
+  "sid" varchar NOT NULL COLLATE "default",
+	"sess" json NOT NULL,
+	"expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+
+ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+CREATE INDEX "IDX_session_expire" ON "session" ("expire");

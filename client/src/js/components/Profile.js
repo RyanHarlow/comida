@@ -1,12 +1,15 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function Profile(props) {
     let { id } = useParams();
+    const [page, setPage] = useState[1];
+    const [username, setUsername] = useState('');
+    const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        axios.get(`/api/review/user/${id}`)
+        axios.get(`/api/review/user/${id}/?page=${page}`)
     },[])
 
     return (

@@ -10,6 +10,10 @@ router.post('/', (req, res) => {
     users.createUser(req, res);
 });
 
+router.get('/:id', (req, res) => {
+    users.getUserById(req, res);
+})
+
 router.post('/login', (req, res) => {
     users.loginUser(req, res);
 })
