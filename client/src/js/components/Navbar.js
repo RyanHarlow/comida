@@ -71,9 +71,9 @@ function Navbar(props) {
                     Comida
                 </a>
 
-                <a
+                <button
+                    style={{backgroundColor: 'hsl(141, 53%, 53%)', border: 'none'}}
                     onClick={() => setMenuOpen(!menuOpen)}
-                    role="button"
                     className={burgerClasses}
                     aria-label="menu"
                     aria-expanded="false"
@@ -81,13 +81,13 @@ function Navbar(props) {
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
-                </a>
+                </button>
             </div>
 
             <div id="navbarBasicExample" className={menuClasses}>
                 <div className="navbar-start" style={{width: '100%', display: 'block', marginRight: '0'}}>
 
-                    <a className="navbar-item" style={{width: '80%', display: 'block', marginRight:'40px'}}>
+                    <div className="navbar-item" style={{width: '80%', display: 'block', marginRight:'40px'}}>
                         <div className="field is-grouped" >
                             <p className="control is-expanded">
                                 <input className="input" type="text" placeholder={`Buscar Lugares`} />
@@ -98,7 +98,7 @@ function Navbar(props) {
                     </button>
                             </p>
                         </div>
-                    </a>
+                    </div>
                 </div>
 
                 <div className="navbar-end">

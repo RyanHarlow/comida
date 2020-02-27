@@ -110,7 +110,7 @@ function SignupModal(props) {
                     <div className="control">
                         <label className="checkbox">
                             <input type="checkbox" checked={acceptsTerms} onChange={() => setAcceptsTerms(!acceptsTerms)}/>
-                            I agree to the <a href="#">terms and conditions</a>
+                            I agree to the <a href="/terms">terms and conditions</a>
                         </label>
                     </div>
                 </div>

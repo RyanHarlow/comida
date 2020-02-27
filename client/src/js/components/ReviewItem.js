@@ -10,7 +10,6 @@ function ReviewItem(props){
   }else if(props.standName){
     title = (<Link to={`/stand/${props.standId}`}>{props.standName}</Link>)
   }
-  console.log(title)
 
     return(
 
