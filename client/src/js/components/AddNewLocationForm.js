@@ -1,6 +1,7 @@
 import React from 'react';
-import './AddNewLocationForm.css'
-import StarSelector from './StarSelector'
+import './AddNewLocationForm.css';
+import StarSelector from './StarSelector';
+import TagList from './TagList';
 
 const AddNewLocationForm = (props) => {
 
@@ -14,8 +15,11 @@ const AddNewLocationForm = (props) => {
             </div>
             <div className="field">
                 <label className="label">Tags</label>
+                <div>
+                    <TagList handleTagClick={props.handleTagClick} tagList={props.tagList} />
+                </div>
                 <div className="control">
-                    <input className="input" type="text" placeholder="Tags... E.g. late night, tortas, tacos" value={props.tags} onChange={(e) => props.setTags(e.target.value)} />
+                    <input className="input" type="text" placeholder="Tags... E.g. late night, tortas, tacos" value={props.tagInput} onChange={(e) => props.setTagInput(e.target.value)} />
                 </div>
             </div>
             <div className={"field"}>

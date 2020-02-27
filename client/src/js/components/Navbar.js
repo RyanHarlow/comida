@@ -95,7 +95,7 @@ function Navbar(props) {
                             <p className="control">
                                 <button className="button is-info">
                                     Buscar
-                    </button>
+                                </button>
                             </p>
                         </div>
                     </div>

@@ -15,17 +15,28 @@ const mapStateToProps = state => {
 
 function AddNewLocation(props) {
     const [name, setName] = useState('');
-    const [tags, setTags] = useState('');
+    const [tagInput, setTagInput] = useState('');
     const [rating, setRating] = useState(5);
     const [review, setReview] = useState('');
     const [coor, setCoor] = useState([19.4326, -99.1332])
     const [error, setError] = useState('');
+    const [tagList, setTagList] = useState([]);
 
+    if(tagInput[tagInput.length-1] === ' '){
+        let tagItem = tagInput.substring(0, tagInput.length);
+        setTagList([...tagList, tagItem])
+        setTagInput('')
+    }
+
+    const handleTagClick = (i) => {
+        console.log(i)
+        setTagList([...tagList.slice(0, i), ...tagList.slice(i+1)]);
+    }
 
     const handleSubmit = () => {
         const data = {
             name,
-            tags,
+            tagInput,
             rating,
             reviewText: review,
             lat: coor[0],
@@ -55,8 +66,10 @@ function AddNewLocation(props) {
                 <AddNewLocationForm
                     name={name}
                     setName={setName}
-                    tags={tags}
-                    setTags={setTags}
+                    tagInput={tagInput}
+                    setTagInput={setTagInput}
+                    tagList={tagList}
+                    handleTagClick={handleTagClick}
                     rating={rating}
                     setRating={setRating}
                     review={review}
