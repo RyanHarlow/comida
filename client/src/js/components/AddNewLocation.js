@@ -23,20 +23,20 @@ function AddNewLocation(props) {
     const [tagList, setTagList] = useState([]);
 
     if(tagInput[tagInput.length-1] === ' '){
-        let tagItem = tagInput.substring(0, tagInput.length);
+        let tagItem = tagInput.substring(0, tagInput.length-1);
         setTagList([...tagList, tagItem])
         setTagInput('')
     }
 
     const handleTagClick = (i) => {
-        console.log(i)
         setTagList([...tagList.slice(0, i), ...tagList.slice(i+1)]);
     }
 
     const handleSubmit = () => {
+        console.log(tagList)
         const data = {
             name,
-            tagInput,
+            tagList: [...tagList],
             rating,
             reviewText: review,
             lat: coor[0],
@@ -47,7 +47,8 @@ function AddNewLocation(props) {
                 if(res.data.success){
                     props.history.push('/map');
                 }else if(res.data.err){
-                    setError(res.data.err);
+                    console.log(res.data.err)
+                    setError(res.data.err.name);
                 }
             }).catch(err => {
                 console.log(err);
