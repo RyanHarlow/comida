@@ -78,10 +78,12 @@ try{
       FROM   unnest(tags) elem
       WHERE  elem ILIKE $1 ${tagText}
     ) or name ilike $1 ${nameText};`
-    console.log(queryText)
-    console.log(queryItems)
 
     const results = await db.query(queryText, queryItems);
+    for(var i = 0; i < results.rows.length; i++){
+      let rating = await db.query('select avg(stars) from review where stand_id = $1', [results.rows[i].id])
+      results.rows[i].rating = rating.rows[0].avg;
+    }
   response.json({success: results.rows})
   }catch(err){
     response.json({err})
