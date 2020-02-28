@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import queryString from 'query-string'
 import axios from 'axios';
+import StandList from './StandList';
+import './Search.css'
 
 function Search(props){
 
@@ -22,8 +24,10 @@ function Search(props){
 
     
     return(
-        <div>
-            this is the search route
+        <div className={'Search'}>
+            <h1 className="title">Results</h1>
+
+            <StandList stands={searchResults}/>
         </div>
     )
 }
