@@ -18,6 +18,7 @@ const createUser = async (request, response) => {
 
   let { password, firstName, lastName, username, email, birthdate, acceptsTerms } = request.body;
 
+
   email = email.toLowerCase();
 
   bcrypt.hash(password, saltRounds, async function (err, hash) {
