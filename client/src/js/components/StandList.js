@@ -3,11 +3,18 @@ import StandItem from './StandItem';
 
 function StandList(props){
 
-    const stands = props.stands.map(stand => {
+    let stands = null;
+    if(props.stands.length === 0){
+        stands = (
+            <h2 class="subtitle">No results for your search</h2>
+        )
+    }else{
+    stands = props.stands.map(stand => {
         return(
             <StandItem key={stand.id} name={stand.name} rating={stand.rating} id={stand.id} />
         )
     })
+}
 
 
     return(
