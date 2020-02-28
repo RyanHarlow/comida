@@ -12,6 +12,7 @@ const AddReview = (props) => {
     const [reviewText, setReviewText] = useState('');
     const [rating, setRating] = useState(5);
     const [placeholder, setPlaceholder] = useState('Add Review Here')
+    const [error, setError] = useState('')
 
     function handleSubmit(){
       const data = {
@@ -32,6 +33,7 @@ const AddReview = (props) => {
         setReviewText('');
         setPlaceholder('Error adding review')
         console.log(res.data.err);
+        setError(res.data.err);
       }
     }).catch(err => {
       setPlaceholder('Error adding review')
@@ -54,7 +56,7 @@ if(!props.isLoggedIn){
 </div>
 <StarSelector rating={rating} handleChange={setRating}/>
 <button onClick={handleSubmit} className="button is-primary">Submit Review</button>
-
+    {error && <div style={{color: 'red'}}>{error}</div>}
         </div>
     )
 }

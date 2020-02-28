@@ -7,12 +7,16 @@ const addReview = async (request, response) => {
         const userVals = [request.session.user]
         const user = await pool.query(userQueryText, userVals);
         const userId = user.rows[0].id;
+        const duplicate = await pool.query('select * from review where stand_id = $1 and user_id = $2', [standId, userId]);
+        if(duplicate.rows.length > 0){
+            response.send({err: 'You have already reviewed this location'})
+        }else{
         const reviewDate = new Date();
         const reviewQueryText = 'insert into review(stars, text_content, user_id, stand_id, date) values ($1,$2,$3,$4,$5)';
         const reviewVals = [rating, reviewText, userId, standId, reviewDate];
         const review = await pool.query(reviewQueryText, reviewVals);
         response.send({ success: 'review added' })
-
+        }
     } catch (err) {
         response.send({ err })
     }
@@ -49,7 +53,7 @@ const getReviewsById = async (request, response) => {
     try {
         const reviews = await pool.query(queryText, queryVals);
         response.send({ success: reviews.rows })
-    } catch (err) {
+    } catch (err) {CC
         response.send({ err })
     }
 }
