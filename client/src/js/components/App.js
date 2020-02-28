@@ -5,6 +5,7 @@ import AddNewLocation from './AddNewLocation';
 import Stand from './Stand'
 import Profile from './Profile';
 import Search from './Search';
+import Terms from './Terms';
 import NoMatch from './NoMatch'
 import Footer from './Footer';
 import './App.css';
@@ -51,6 +52,7 @@ function App(props) {
         <Route path='/profile/:id' component={Profile} />
         <Route path='/stand/:id' component={Stand} />
         <Route path='/search' component={Search} />
+        <Route path='/terms' component={Terms} />
         <Route component={NoMatch} />
       </Switch>
       <Footer />

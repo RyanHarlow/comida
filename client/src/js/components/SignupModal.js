@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { connect } from "react-redux";
 import { setLoggedIn } from "../actions/index";
+import { Link } from 'react-router-dom';
 import './SignupModal.css'
 import axios from 'axios';
 
@@ -110,7 +111,8 @@ function SignupModal(props) {
                     <div className="control">
                         <label className="checkbox">
                             <input type="checkbox" checked={acceptsTerms} onChange={() => setAcceptsTerms(!acceptsTerms)}/>
-                            I agree to the <a href="/terms">terms and conditions</a>
+                            I agree to the <Link to="/terms" target="_blank" onClick={(event) => {event.preventDefault(); window.open("/terms");}}>terms and conditions</Link>
+
                         </label>
                     </div>
                 </div>
