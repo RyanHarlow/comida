@@ -86,3 +86,14 @@ WITH (OIDS=FALSE);
 ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
 CREATE INDEX "IDX_session_expire" ON "session" ("expire");
+
+
+SELECT * FROM stand WHERE name iLIKE '%torta%' or where any (tags) ilike '%torta%';
+
+SELECT *
+FROM   stand
+WHERE  EXISTS (
+    SELECT  
+    FROM   unnest(tags) elem
+    WHERE  elem LIKE '%torta%' or elem like '%mexico%'
+  ) or name ilike '%torta%' or name ilike '%hamburgesas%';

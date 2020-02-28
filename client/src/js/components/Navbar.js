@@ -6,6 +6,8 @@ import LoginModal from './LoginModal';
 import axios from 'axios';
 import { connect } from "react-redux";
 import { setLoggedIn } from "../actions/index";
+import { withRouter } from 'react-router-dom'
+
 
 
 const mapStateToProps = state => {
@@ -21,6 +23,12 @@ const mapStateToProps = state => {
 
 
 function Navbar(props) {
+
+    const [searchText, setSearchText] = useState('');
+
+    const handleSearch = () => {
+        props.history.push(`/search/?search=${searchText}`);
+    }
 
     let handleLogoutClick = () => {
         axios.post('/api/users/logout')
@@ -90,11 +98,11 @@ function Navbar(props) {
                     <div className="navbar-item" style={{width: '80%', display: 'block', marginRight:'40px'}}>
                         <div className="field is-grouped" >
                             <p className="control is-expanded">
-                                <input className="input" type="text" placeholder={`Buscar Lugares`} />
+                                <input className="input" type="text" placeholder={`Search Locations`} value={searchText} onChange={(e) => {setSearchText(e.target.value)}}/>
                             </p>
                             <p className="control">
-                                <button className="button is-info">
-                                    Buscar
+                                <button onClick={handleSearch} className="button is-info">
+                                    Search
                                 </button>
                             </p>
                         </div>
@@ -113,7 +121,7 @@ function Navbar(props) {
     )
 }
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Navbar);
+  )(Navbar));

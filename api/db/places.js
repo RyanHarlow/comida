@@ -59,9 +59,39 @@ const getStandById = async (request, response) => {
   }
 }
 
+const searchPlaces = async (request, response) => {
+try{
+  const queryItems = request.query.search.split(' ');
+  for(let i = 0; i < queryItems.length; i++){
+    queryItems[i] = `%${queryItems[i]}%`
+  }
+  let tagText = '';
+  let nameText = '';
+  for(let i = 1; i < queryItems.length; i++){
+    tagText = tagText + ` or elem like $${i+1} `
+    nameText = nameText + ` or name ilike $${i + 1} `
+  }
+  const queryText = `SELECT *
+  FROM   stand
+  WHERE  EXISTS (
+      SELECT  
+      FROM   unnest(tags) elem
+      WHERE  elem ILIKE $1 ${tagText}
+    ) or name ilike $1 ${nameText};`
+    console.log(queryText)
+    console.log(queryItems)
+
+    const results = await db.query(queryText, queryItems);
+  response.json({success: results.rows})
+  }catch(err){
+    response.json({err})
+  }
+}
+
 
 module.exports = {
   getAllStands: getAllStands,
   addStand: addStand,
-  getStandById: getStandById
+  getStandById: getStandById,
+  searchPlaces: searchPlaces
 };

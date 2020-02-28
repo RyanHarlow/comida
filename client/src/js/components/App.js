@@ -4,6 +4,7 @@ import LandingPage from './LandingPage';
 import AddNewLocation from './AddNewLocation';
 import Stand from './Stand'
 import Profile from './Profile';
+import Search from './Search';
 import NoMatch from './NoMatch'
 import Footer from './Footer';
 import './App.css';
@@ -49,6 +50,7 @@ function App(props) {
         <Route exact path='/add'><AddNewLocation setLoginModalOpen={setLoginModalOpen}/></Route>
         <Route path='/profile/:id' component={Profile} />
         <Route path='/stand/:id' component={Stand} />
+        <Route path='/search' component={Search} />
         <Route component={NoMatch} />
       </Switch>
       <Footer />
