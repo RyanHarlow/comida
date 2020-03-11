@@ -19,7 +19,7 @@ function LandingPage(props) {
     let buttons = null;
     if (!props.isLoggedIn) {
     buttons = (
-        <div>
+        <div style={{backgroundColor: 'rgba(0,0,0,.7)', padding:'1rem', display: 'inline-block'}}>
         <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <Link to='/map'><button className='button is-link'>Explore Now</button></Link>
     
@@ -46,7 +46,7 @@ function LandingPage(props) {
         <div className='LandingPage' style={{/*backgroundImage: `url("/food-tray.jpeg")`*/ }}>
             <section className="hero intro" style={{/* marginTop: '4rem' */ }}>
                 <div className="hero-body">
-                    <div className="container">
+                    <div className="container" style={{textAlign:'center'}}>
                         <div className='intro-columns columns is-vcentered' >
                             <div className='intro-column column' style={{ textAlign: 'center' }}>
                                 <div className='intro-content' style={{ textAlign: 'center' }}>
