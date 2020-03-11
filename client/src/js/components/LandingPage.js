@@ -25,7 +25,7 @@ function LandingPage(props) {
     
                             </div>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem', color: 'white' }}>
-                <p>Signup or login to add Location</p>
+                <p><Link style={{color: 'hsl(204, 86%, 53%)'}} onClick={() => props.setSignupModalOpen(true)}>Signup</Link> or <Link style={{color: 'hsl(204, 86%, 53%)'}} onClick={() => props.setLoginModalOpen(true)}>login</Link> to add Location</p>
             </div>
             </div>
         )
